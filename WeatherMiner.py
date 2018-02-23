@@ -29,7 +29,6 @@ class WeatherMiner:
             weather_data (dict): temperatures for requested day
         """
         req_url = self.api_string.format(AIRPORT=airport,YEAR=year,MONTH=month,DAY=day)
-        print req_url
         raw_data = BeautifulSoup(urllib2.urlopen(req_url).read(),"lxml").find("table",{"id":"historyTable"}).findAll("span",{"class":"wx-value"})
         weather_floats = [float(x.text) for x in raw_data]
         weather_data = dict(zip(self.weather_keys,weather_floats))
